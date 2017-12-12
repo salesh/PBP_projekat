@@ -1,2 +1,3 @@
-# PBP_projekat
-Seminarski rad iz predmeta Projektovanje baza podataka na MATF-u.
+# PBP_project
+
+Seminary work on course Database Design on faculty.
