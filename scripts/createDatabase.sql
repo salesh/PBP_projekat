@@ -126,7 +126,7 @@ DROP TABLE IF EXISTS registracija_smestaja ;
 CREATE TABLE IF NOT EXISTS registracija_smestaja (
   pravno_lice_klijent_key_klijent INT NOT NULL,
   smestaj_key_smestaj INT NOT NULL,
-  datum_registracije DATE NOT NULL,
+  datum_registracije TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (pravno_lice_klijent_key_klijent, smestaj_key_smestaj),
   INDEX fk_registracija_smestaja_smestaj1_idx (smestaj_key_smestaj ASC),
   INDEX fk_registracija_smestaja_pravno_lice1_idx (pravno_lice_klijent_key_klijent ASC),
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS rezervacija (
   ponuda_key_ponuda INT NOT NULL,
   fizicko_lice_klijent_key_klijent INT NOT NULL,
   status_rezervacije_key_status_rezervacije INT NOT NULL,
-  datum_rezervacije DATE NOT NULL,
+  datum_rezervacije TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   koliko_soba INT NOT NULL,
   tip_soba VARCHAR(45) NOT NULL,
   PRIMARY KEY (ponuda_key_ponuda, fizicko_lice_klijent_key_klijent),

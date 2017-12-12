@@ -68,7 +68,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE mydb;
-INSERT INTO registracija_smestaja (pravno_lice_klijent_key_klijent, smestaj_key_smestaj, datum_registracije) VALUES (1, 1, "10.12.2017");
+INSERT INTO registracija_smestaja (pravno_lice_klijent_key_klijent, smestaj_key_smestaj) VALUES (1, 1);
 
 COMMIT;
 
@@ -88,7 +88,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE mydb;
-INSERT INTO rezervacija (ponuda_key_ponuda, fizicko_lice_klijent_key_klijent, datum_rezervacije, koliko_soba, tip_soba) VALUES (1, 2,"11.12.2017", 2, "1");
+INSERT INTO rezervacija (ponuda_key_ponuda, fizicko_lice_klijent_key_klijent, koliko_soba, tip_soba) VALUES (1, 2, 2, "1");
 
 COMMIT;
 

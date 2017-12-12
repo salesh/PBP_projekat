@@ -14,6 +14,7 @@ echo "Created database"
 
 mysql -u $USER $PASS < ./triggers/trigger1.sql
 mysql -u $USER $PASS < ./triggers/trigger2.sql
+mysql -u $USER $PASS < ./triggers/trigger3.sql
 
 echo "Created triggers"
 
