@@ -29,7 +29,11 @@ CREATE TABLE IF NOT EXISTS klijent (
   prezime VARCHAR(100) NOT NULL,
   email VARCHAR(50) NOT NULL,
   kontakt_telefon VARCHAR(45) NULL,
-  PRIMARY KEY (key_klijent))
+  korisnicko_ime VARCHAR(45) NOT NULL,
+  lozinka VARCHAR(45) NOT NULL,
+  pravno_lice TINYINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (key_klijent),
+  UNIQUE INDEX korisnicko_ime_unique (korisnicko_ime ASC))
 ENGINE = InnoDB;
 
 

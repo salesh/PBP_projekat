@@ -2,6 +2,9 @@
     "files.associations": {
         "stdlib.h": "c",
         "stdio.h": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "ponuda.h": "c",
+        "radnik.h": "c",
+        "klijent.h": "c"
     }
 }

@@ -17,8 +17,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE mydb;
-INSERT INTO klijent (ime, prezime, email, kontakt_telefon) VALUES ("Sasa", "Cvetkovic", "sasko@gmail.com", "064555444");
-INSERT INTO klijent (ime, prezime, email, kontakt_telefon) VALUES ("Nenad", "Micunovic", "nenadko@gmail.com", "064333444");
+INSERT INTO klijent (ime, prezime, email, kontakt_telefon, korisnicko_ime, lozinka) VALUES ("Sasa", "Cvetkovic", "sasko@gmail.com", "064555444", "root", "root");
+INSERT INTO klijent (ime, prezime, email, kontakt_telefon, korisnicko_ime, lozinka) VALUES ("Nenad", "Micunovic", "nenadko@gmail.com", "064333444", "roott", "roott");
 
 COMMIT;
 
