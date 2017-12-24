@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS klijent (
   lozinka VARCHAR(45) NOT NULL,
   pravno_lice TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (key_klijent),
-  UNIQUE INDEX korisnicko_ime_unique (korisnicko_ime ASC))
+  UNIQUE INDEX korisnicko_ime_unique (korisnicko_ime ASC),
+  UNIQUE INDEX email_unique (email ASC))
 ENGINE = InnoDB;
 
 
@@ -116,9 +117,10 @@ CREATE TABLE IF NOT EXISTS smestaj (
   drzava VARCHAR(45) NOT NULL,
   grad VARCHAR(45) NOT NULL,
   adresa VARCHAR(45) NOT NULL,
-  tip VARCHAR(45) NOT NULL,
   opis VARCHAR(200) NOT NULL,
-  PRIMARY KEY (key_smestaj))
+  univerzalna_sifra VARCHAR(45) not null,
+  PRIMARY KEY (key_smestaj),
+  UNIQUE INDEX univerzalna_sifra_UNIQUE (univerzalna_sifra ASC))
 ENGINE = InnoDB;
 
 
@@ -156,9 +158,8 @@ CREATE TABLE IF NOT EXISTS ponuda (
   key_ponuda INT NOT NULL AUTO_INCREMENT,
   registracija_smestaja_pravno_lice_klijent_key_klijent INT NOT NULL,
   registracija_smestaja_smestaj_key_smestaj INT NOT NULL,
-  tip_sobe VARCHAR(45) NOT NULL,
   broj_soba INT NOT NULL,
-  aktivna TINYINT NOT NULL,
+  aktivna TINYINT NOT NULL DEFAULT 1,
   cena_sobe DOUBLE NOT NULL,
   datum_pocetka DATE NOT NULL,
   datum_zavrsetka DATE NOT NULL,
@@ -195,7 +196,6 @@ CREATE TABLE IF NOT EXISTS rezervacija (
   status_rezervacije_key_status_rezervacije INT NOT NULL,
   datum_rezervacije TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   koliko_soba INT NOT NULL,
-  tip_soba VARCHAR(45) NOT NULL,
   PRIMARY KEY (ponuda_key_ponuda, fizicko_lice_klijent_key_klijent),
   INDEX fk_rezervacija_fizicko_lice1_idx (fizicko_lice_klijent_key_klijent ASC),
   INDEX fk_rezervacija_ponuda1_idx (ponuda_key_ponuda ASC),

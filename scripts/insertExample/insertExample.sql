@@ -58,8 +58,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE mydb;
-INSERT INTO smestaj (naziv, drzava, grad, adresa, tip, opis) VALUES ("Bele vode", "Srbija", "Kovilovo", "Nedodjija 15", "1", "Jednokrevetne sobe");
-
+INSERT INTO smestaj (naziv, drzava, grad, adresa, opis,univerzalna_sifra) VALUES ("Bele vode", "Srbija", "Kovilovo", "Nedodjija 15", "Jednokrevetne sobe", "1");
+INSERT INTO smestaj (naziv, drzava, grad, adresa, opis,univerzalna_sifra) VALUES ("Crne vode", "Austrija", "Bec", "Dodjija 51", "Dvokrevetne sobe", "2");
 COMMIT;
 
 
@@ -69,7 +69,7 @@ COMMIT;
 START TRANSACTION;
 USE mydb;
 INSERT INTO registracija_smestaja (pravno_lice_klijent_key_klijent, smestaj_key_smestaj) VALUES (1, 1);
-
+INSERT INTO registracija_smestaja (pravno_lice_klijent_key_klijent, smestaj_key_smestaj) VALUES (1, 2);
 COMMIT;
 
 
@@ -78,7 +78,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE mydb;
-INSERT INTO ponuda (registracija_smestaja_pravno_lice_klijent_key_klijent, registracija_smestaja_smestaj_key_smestaj, tip_sobe, broj_soba, aktivna, cena_sobe, datum_pocetka, datum_zavrsetka) VALUES (1, 1, "1", 5, 1, 150, "12.12.2017", "31.12.2017");
+INSERT INTO ponuda (registracija_smestaja_pravno_lice_klijent_key_klijent, registracija_smestaja_smestaj_key_smestaj, broj_soba, aktivna, cena_sobe, datum_pocetka, datum_zavrsetka) VALUES (1, 1, 5, 1, 150, "2017-12-12", "2017-12-22");
+
+INSERT INTO ponuda (registracija_smestaja_pravno_lice_klijent_key_klijent, registracija_smestaja_smestaj_key_smestaj, broj_soba, aktivna, cena_sobe, datum_pocetka, datum_zavrsetka) VALUES (1, 2, 5, 1, 200, "2017-11-12", "2017-11-12");
 
 COMMIT;
 
@@ -88,17 +90,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE mydb;
-INSERT INTO rezervacija (ponuda_key_ponuda, fizicko_lice_klijent_key_klijent, koliko_soba, tip_soba) VALUES (1, 2, 2, "1");
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table faktura_rezervacije
--- -----------------------------------------------------
-START TRANSACTION;
-USE mydb;
-INSERT INTO faktura_rezervacije (rezervacija_ponuda_key_ponuda, rezervacija_fizicko_lice_klijent_key_klijent) VALUES (1, 2);
+INSERT INTO rezervacija (ponuda_key_ponuda, fizicko_lice_klijent_key_klijent, koliko_soba) VALUES (1, 2, 2);
 
 COMMIT;
 

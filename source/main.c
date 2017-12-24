@@ -7,16 +7,21 @@ int main(){
     sql.connection = mysql_init(NULL);
     
     if(mysql_real_connect(sql.connection,"localhost", "root", "root", "mydb",0, NULL, 0) == NULL){
-        printf("Failed to connect to database\n");
+        printf("Failed to connect to database\n\n");
+        printf("%s\n",mysql_error(sql.connection));
     } else {
-        printf("Dobrodosli na Booking.com\n");
+        printf("\nDobrodosli na Booking.com\n\n");
     }
 
     int stanje = 0;
 
     while(1){
-        printf("%s:\n%s\n%s\n%s\n%s\n",
-            "Izaberite opciju","1. Registracija naloga", "2. Ulogujte se", "3. Pogledajte trenutne ponude", "4. Napustite program");
+        printf("%s:\n%s\n%s\n%s\n%s\n\n",
+            "Izaberite opciju",
+            "1. Registracija naloga", 
+            "2. Ulogujte se", 
+            "3. Pogledajte trenutne ponude", 
+            "4. Napustite program");
         scanf("%i", &stanje);
 
         switch(stanje){
@@ -24,7 +29,7 @@ int main(){
                 registrujNalog(&sql);
             break;
             case 2:
-               ulogujteSe(&sql);
+                ulogujteSe(&sql);
             break;
             case 3:
                 dohvatiSvePonude(&sql);
@@ -32,8 +37,9 @@ int main(){
             case 4:
                 exit(EXIT_SUCCESS);
             default:
-            printf("Niste izabrali nijednu validnu opciju!\n");
+                printf("\nNiste izabrali nijednu validnu opciju!\n");
         }
     }
+    mysql_close(sql.connection);
     return 0;
 }
