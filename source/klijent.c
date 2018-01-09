@@ -236,6 +236,7 @@ void idiNaAkcijePravnogLica(Sql *sql, int keyPravnogLica){
             break;
             case 6:
                 podaciOFirmi(sql, keyPravnogLica);
+            break;
             case 7:
                 printf("\nUspesno izlogovani!\n");
                 return;
@@ -323,12 +324,15 @@ void podaciOFirmi(Sql *sql, int keyPravnogLica){
             for(int i = 0; i<n; i++){
                 printf("%s\t",sql->row[i]);
             }
+            mysql_free_result(sql->result);
         } else {
                  printf("Nije pronadjena firma pravnog lica");
+          return;
         }
         printf("\n");
     }
     printf("\n");
+    return;
 }
 
 void podaciONalogu(Sql *sql, int keyUlog){
@@ -369,7 +373,7 @@ void podaciONalogu(Sql *sql, int keyUlog){
 void trenutnePonudeSvihSmestaja(Sql *sql, int keyPravnogLica){
 
     strcpy(sql->query, "");
-    sprintf(sql->query, "select s.key_smestaj as SifraSmestaja, p.key_ponuda as SifraPonude, concat(s.naziv, ' ', s.drzava,' ', s.grad, ' ', s.adresa, ' ', s.opis, ' ', s.univerzalna_sifra) as PodaciSmestaja,\
+    sprintf(sql->query, "select s.key_smestaj as SifraSmestaja, p.key_ponuda as SifraPonude, concat(s.naziv, ' ', s.drzava,' ', s.grad, ' ', s.adresa, ' ', p.tip_sobe , ' ', s.univerzalna_sifra) as PodaciSmestaja,\
         rs.datum_registracije as DatumRegistracije,\
         concat(p.broj_soba, ' ', p.cena_sobe,' ', p.datum_pocetka, ' ', p.datum_zavrsetka) as BrojSobaCenaDatumPocetkaDatumZavrsetka\
         from smestaj s join registracija_smestaja rs\
@@ -406,7 +410,7 @@ void trenutnePonudeSvihSmestaja(Sql *sql, int keyPravnogLica){
 
 void sviSmestaji(Sql *sql, int keyPravnogLica){
     strcpy(sql->query, "");
-    sprintf(sql->query, "select s.key_smestaj as SifraSmestaja, concat(s.naziv, ' ', s.drzava,' ', s.grad, ' ', s.adresa, ' ', s.opis, ' ', s.univerzalna_sifra) as PodaciSmestaja, \
+    sprintf(sql->query, "select s.key_smestaj as SifraSmestaja, concat(s.naziv, ' ', s.drzava,' ', s.grad, ' ', s.adresa, ' ', s.univerzalna_sifra) as PodaciSmestaja, \
         rs.datum_registracije as DatumRegistracijeSmestaja \
         from smestaj s join registracija_smestaja rs \
 	    on s.key_smestaj = rs.smestaj_key_smestaj \
@@ -442,25 +446,25 @@ void sviSmestaji(Sql *sql, int keyPravnogLica){
 void noviSmestaj(Sql *sql, int keyPravnogLica){
     strcpy(sql->query,"");
 
-    printf("Unesite redom:\n naziv\n drzava\n grad\n adresa\n opis\n univerzalna_sifra\n");
+    printf("Unesite redom:\n naziv\n drzava\n grad\n adresa\n univerzalna_sifra\n");
     printf("\n\n");
-    sprintf(sql->query, "INSERT INTO smestaj (naziv, drzava, grad, adresa, opis, univerzalna_sifra) values(");
+    sprintf(sql->query, "INSERT INTO smestaj (naziv, drzava, grad, adresa, univerzalna_sifra) values(");
 
     char *str = (char *) malloc(100);
     char pomBuff[100];
     int keySmestaj;
     char *pomKI = (char *) malloc(100);
 
-    for(int i=0; i<6; i++){
+    for(int i=0; i<5; i++){
         scanf("%ms", &str);
         sprintf(pomBuff, "'%s'", str);
 
-        if(i == 5){
+        if(i == 4){
            strcpy(pomKI, pomBuff);
         }
         strcpy(str, pomBuff);
         strcat(sql->query, str);
-        if(i!=5){
+        if(i!=4){
             strcat(sql->query, ",");
         } 
         free(str);
@@ -540,20 +544,20 @@ void novaPonuda(Sql *sql, int keyPravnogLica){
     printf("\n\nIzaberite sifru smestaja za kreiranje nove ponudu\n\n");
     scanf("%d", &keySmestaj);
 
-    printf("\n\nUnesite redom:\n broj soba\n cena soba \n datum pocetka\n datum zavrsetka (npr2017-1-19)\n\n");
+    printf("\n\nUnesite redom:\n broj soba\n cena soba \n datum pocetka\n datum zavrsetka (npr2017-1-19) i tip sobe (jednokrevetna..)\n\n");
     char *str = (char *) malloc(100);
     char pomBuff[100];
 
     strcpy(sql->query, "");
     sprintf(sql->query, "insert into ponuda (registracija_smestaja_pravno_lice_klijent_key_klijent, \
         registracija_smestaja_smestaj_key_smestaj, \
-        broj_soba, cena_sobe, datum_pocetka, datum_zavrsetka) values(%d, %d,", keyPravnogLica, keySmestaj);
-    for(int i = 0; i<4; i++){
+        broj_soba, cena_sobe, datum_pocetka, datum_zavrsetka, tip_sobe) values(%d, %d,", keyPravnogLica, keySmestaj);
+    for(int i = 0; i<5; i++){
         scanf("%ms", &str);
         sprintf(pomBuff, "'%s'", str);
         strcpy(str, pomBuff);
         strcat(sql->query, str);
-        if(i != 3){
+        if(i != 4){
             strcat(sql->query, ",");
         }
         free(str);
